@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Random Counter</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Intro';
+            src: url('intro.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body, html {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('fon.jpg');
+            background-size: cover; /* Или попробуйте заменить на `contain` */
+            background-repeat: no-repeat; /* Убирает повторение */
+            background-position: center; /* Центрирует фон */
+            background-attachment: fixed; /* Оставляет фон на месте при прокрутке */
+        }
+        .title {
+            font-family: 'Intro', sans-serif; /* Шрифт для заголовка */
+            font-size: 2em;
+            color: white; /* Цвет текста */
+            margin-bottom: 30px; /* Отступ от круга */
+        }
+        .circle {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black; /* Изменено на черный */
+            border: 13px solid purple; /* Добавлена фиолетовая окантовка */
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            font-size: 3em;
+            color: white; /* Изменен цвет текста на белый */
+            position: relative;
+        }
+        .circle .counter-prefix {
+            font-family: sans-serif; /* Шрифт для 'x' */
+        }
+        .circle .counter-number {
+            font-family: 'Intro', sans-serif; /* Шрифт для числа */
+        }
+        .btn-signal {
+            width: 150px;
+            font-size: 1em;
+            position: relative;
+            font-family: 'Intro', sans-serif; /* Шрифт для числа */
+            border-radius: 50px; /* Сделать кнопку овальной */
+            padding: 10px 20px; /* Добавить внутренние отступы для кнопки */
+            background-color: #007bff; /* Цвет фона кнопки */
+            color: white; /* Цвет текста кнопки */
+            border: none; /* Убрать границу кнопки */
+        }
+        #jet {
+            position: absolute;
+            top: 20%; /* Новая начальная позиция */
+            left: 0%; /* Новая начальная позиция */
+            width: 150px; /* Увеличен размер */
+            height: 150px; /* Увеличен размер */
+            background: url('1.gif') no-repeat;
+            background-size: contain;
+            animation: moveBackAndForth 12s ease-in-out infinite; /* Уменьшено время анимации */
+            z-index: 10; /* Установлен высокий z-index */
+        }
+        #sub-jet {
+            position: absolute;
+            top: 90px; /* Регулируйте значение по необходимости */
+            left: -83px; /* Сдвиг влево, корректируйте значение по необходимости */
+            width: 120px; /* Размер иконки 2.gif */
+            height: 120px; /* Размер иконки 2.gif */
+            background: url('2.gif') no-repeat;
+            background-size: contain;
+            z-index: 10; /* Установлен высокий z-index */
+        }
+        @keyframes moveBackAndForth {
+            0%, 100% { transform: translate(0, 0); }
+            30% { transform: translate(200px, 200px); } /* Регулируйте значения для изменения траектории */
+        }
+    </style>
+</head>
+<body>
+    <div id="jet">
+        <div id="sub-jet"></div> <!-- Вложенная иконка -->
+    </div> <!-- Элемент для иконки -->
+    <div class="container text-center">
+        <div class="title">N$GOCIO</div> <!-- Заголовок -->
+        <div class="circle">
+            <span class="counter-prefix">x</span><span class="counter-number" id="counter">0.00</span>
+        </div>
+        <button class="btn btn-primary btn-signal" onclick="startCounter()">Сигнал</button>
+    </div>
+    <script>
+        let interval = null;
+        function getRandomTarget() {
+            const rand = Math.random();
+            if (rand < 0.6) {
+                // 60% chance for range 1.00 - 3.00
+                return (Math.random() * 3.00).toFixed(2);
+            } else if (rand < 0.85) {
+                // 25% chance for range 3.00 - 5.00
+                return (3.00 + Math.random() * 2.00).toFixed(2);
+            } else if (rand < 0.95) {
+                // 10% chance for range 5.00 - 8.00
+                return (5.00 + Math.random() * 3.00).toFixed(2);
+            } else {
+                // 5% chance for range 8.00 - 9.99
+                return (8.00 + Math.random() * 1.99).toFixed(2);
+            }
+        }
+
+        function startCounter() {
+            clearInterval(interval);
+            let counterNumber = document.getElementById('counter');
+            let target = getRandomTarget();
+            let current = 0.01;
+            counterNumber.textContent = current.toFixed(2);
+
+            interval = setInterval(function() {
+                let increment = (target - current) / 100 + 0.01;
+                current += increment;
+                if (current >= target) {
+                    clearInterval(interval);
+                    current = target;
+                }
+                counterNumber.textContent = current.toFixed(2);
+            }, 20);
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
