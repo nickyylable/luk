@@ -104,18 +104,18 @@
         let interval = null;
         function getRandomTarget() {
             const rand = Math.random();
-            if (rand < 0.6) {
-                // 60% chance for range 1.00 - 3.00
-                return (Math.random() * 3.00).toFixed(2);
-            } else if (rand < 0.85) {
-                // 25% chance for range 3.00 - 5.00
-                return (3.00 + Math.random() * 2.00).toFixed(2);
-            } else if (rand < 0.95) {
-                // 10% chance for range 5.00 - 8.00
-                return (5.00 + Math.random() * 3.00).toFixed(2);
+            if (rand < 0.5) {
+                // 50% chance for range 0.00 - 5.00
+                return (Math.random() * 5.00).toFixed(2);
+            } else if (rand < 0.75) {
+                // 25% chance for range 5.00 - 10.00
+                return (5.00 + Math.random() * 5.00).toFixed(2);
+            } else if (rand < 0.9) {
+                // 15% chance for range 10.00 - 15.00
+                return (10.00 + Math.random() * 5.00).toFixed(2);
             } else {
-                // 5% chance for range 8.00 - 9.99
-                return (8.00 + Math.random() * 1.99).toFixed(2);
+                // 10% chance for range 15.00 - 19.99
+                return (15.00 + Math.random() * 4.99).toFixed(2);
             }
         }
 
